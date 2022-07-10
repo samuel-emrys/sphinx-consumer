@@ -53,7 +53,7 @@ class SphinxDocsConan(ConanFile):
         dp = CMakeDeps(self)
         dp.generate()
 
-        py = self.python_requires["pyvenv"].module.CMakePythonEnvironment(self)
+        py = self.python_requires["pyvenv"].module.CMakePythonDeps(self)
         py.generate()
 
     def build(self):
