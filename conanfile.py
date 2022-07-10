@@ -11,10 +11,10 @@ class SphinxDocsConan(ConanFile):
     version = "0.1.0"
 
     # Optional metadata
-    license = "<Put the package license here>"
-    author = "<Put your name here> <And your email here>"
-    url = "<Package recipe repository url here, for issues about the package>"
-    description = "<Description of SphinxDocs here>"
+    license = "MIT"
+    author = "Samuel Dowling <samuel.dowling@protonmail.com>"
+    url = "https://github.com/samuel-emrys/sphinx-consumer.git"
+    description = "This is a C++ package that uses sphinx to build its documentation"
     topics = ("<Put some tag here>", "<here>", "<and here>")
 
     # Binary configuration
@@ -24,7 +24,7 @@ class SphinxDocsConan(ConanFile):
 
     # Sources are located in the same place as this recipe, copy them to the recipe
     exports_sources = "CMakeLists.txt", "src/*", "include/*", "requirements.txt"
-    generators = "CMakePythonEnvironment"
+    python_requires = "pyvenv/0.1.0"
 
     def config_options(self):
         if self.settings.os == "Windows":
@@ -51,9 +51,10 @@ class SphinxDocsConan(ConanFile):
         tc.generate()
 
         dp = CMakeDeps(self)
-        # dp.build_context_activated = ["python-sphinx"]
-        # dp.build_context_build_modules = ["python-sphinx"]
         dp.generate()
+
+        py = self.python_requires["pyvenv"].module.CMakePythonEnvironment(self)
+        py.generate()
 
     def build(self):
         cmake = CMake(self)
