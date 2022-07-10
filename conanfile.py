@@ -1,6 +1,6 @@
 from conan import ConanFile
 from conan.tools.cmake import CMakeToolchain, CMakeDeps, CMake, cmake_layout
-from conans.model import Generator
+from conan.tools.python import CMakePythonDeps
 import json
 import pkg_resources
 import pathlib
@@ -24,7 +24,6 @@ class SphinxDocsConan(ConanFile):
 
     # Sources are located in the same place as this recipe, copy them to the recipe
     exports_sources = "CMakeLists.txt", "src/*", "include/*", "requirements.txt"
-    python_requires = "pyvenv/0.1.0"
 
     def config_options(self):
         if self.settings.os == "Windows":
@@ -53,7 +52,7 @@ class SphinxDocsConan(ConanFile):
         dp = CMakeDeps(self)
         dp.generate()
 
-        py = self.python_requires["pyvenv"].module.CMakePythonDeps(self)
+        py = CMakePythonDeps(self)
         py.generate()
 
     def build(self):
