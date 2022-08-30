@@ -23,8 +23,8 @@ class SphinxDocsConan(ConanFile):
     default_options = {"shared": False, "fPIC": True}
 
     # Sources are located in the same place as this recipe, copy them to the recipe
-    exports_sources = "CMakeLists.txt", "src/*", "include/*", "requirements.txt"
-    python_requires = "pyvenv/0.1.0"
+    exports_sources = "CMakeLists.txt", "docs/*", "src/*", "include/*", "requirements.txt"
+    python_requires = "CMakePythonDeps/0.1.0"
 
     def config_options(self):
         if self.settings.os == "Windows":
@@ -53,7 +53,7 @@ class SphinxDocsConan(ConanFile):
         dp = CMakeDeps(self)
         dp.generate()
 
-        py = self.python_requires["pyvenv"].module.CMakePythonDeps(self)
+        py = self.python_requires["CMakePythonDeps"].module.CMakePythonDeps(self)
         py.generate()
 
     def build(self):

@@ -1,5 +1,5 @@
-#include "sphinx-docs.h"
+#include "sphinxdoc.h"
 
 int main() {
-    sphinx-docs();
+    sphinxdoc();
 }
